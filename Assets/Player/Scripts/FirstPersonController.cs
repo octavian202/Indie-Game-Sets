@@ -1,5 +1,4 @@
-﻿using UnityEditor.Experimental.TerrainAPI;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Player
 {
@@ -10,8 +9,8 @@ namespace Player
         private CharacterController controller;
         //private Animator animator;
 
-        private int velocityX = Animator.StringToHash("velocityX");
-        private int velocityY = Animator.StringToHash("velocityY");
+        private readonly int velocityX = Animator.StringToHash("velocityX");
+        private readonly int velocityY = Animator.StringToHash("velocityY");
 
         public float runSpeed = 20f;
         public float walkSpeed = 12f;
@@ -20,8 +19,10 @@ namespace Player
         [HideInInspector] public bool isRunning = false;
         [HideInInspector] public bool isWalking = false;
         [HideInInspector] public bool isIdle = false;
-    
-        private float gravity = -9.81f;
+
+        private float _staminaUsedWhilstRunning = 30f;
+
+        private readonly float gravity = -9.81f;
         private Vector3 gravityVector = Vector3.zero;
 
         private readonly float _speedChangeSmoothness = 0.25f;
@@ -41,9 +42,11 @@ namespace Player
         
         private void Update()
         {
-            ChangeSpeed();
-            
             StateChange();
+            
+            StaminaUse();
+
+            ChangeSpeed();
             
             Move();
 
@@ -69,26 +72,24 @@ namespace Player
 
         private void ChangeSpeed()
         {
-            currentSpeed = Input.GetKey(KeyCode.LeftShift)
+            currentSpeed = isRunning 
                 ? Mathf.Lerp(currentSpeed, runSpeed, _speedChangeSmoothness)
                 : InterpolateFromMaxToMin(currentSpeed, walkSpeed, _speedChangeSmoothness);
         }
 
         private void StateChange()
         {
+            var staminaBarValue = StaminaBar.instance.staminaBar.value;
+            
             //sprint
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetKeyDown(KeyCode.LeftShift) && staminaBarValue > 1f)
             {
                 isRunning = true;
                 isWalking = false;
                 return;
             }
 
-            if (Input.GetKeyUp(KeyCode.LeftShift))
-            {
-                isRunning = false;
-                return;
-            }
+            if (Input.GetKeyUp(KeyCode.LeftShift) || staminaBarValue <= 1f) isRunning = false;
             
             //plimbat
             var _movementInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
@@ -107,6 +108,11 @@ namespace Player
             var _desiredMoveDirection = currentSpeed * Time.deltaTime * (velocity.x * transform.right + velocity.y * transform.forward);
             if (!controller.isGrounded) _desiredMoveDirection *= 0.5f;
             controller.Move(_desiredMoveDirection);
+        }
+
+        private void StaminaUse()
+        {
+            if (isRunning) StaminaBar.instance.UseStamina(_staminaUsedWhilstRunning * Time.deltaTime);
         }
 
         /*
