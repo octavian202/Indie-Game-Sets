@@ -127,7 +127,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-12248
+  m_Name: pb_Mesh14036
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1151,7 +1151,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1569681091}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d764f4b6b474f5b428298d8cf838a45d, type: 3}
+  m_Script: {fileID: 11500000, guid: 6490aef811be8314da5dedc7aabff015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   staminaBar: {fileID: 1569681093}
@@ -1165,6 +1165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1878406025}
   - component: {fileID: 1878406026}
+  - component: {fileID: 1878406029}
   - component: {fileID: 1878406028}
   - component: {fileID: 1878406027}
   m_Layer: 0
@@ -1217,10 +1218,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1878406024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eac786d2b9d345249ad75b8a0b120e13, type: 3}
+  m_Script: {fileID: 11500000, guid: 268d53f9e448edd4bb623e207c101cd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 1000
+  mouseSensitivity: 700
   cameraTransform: {fileID: 963194228}
 --- !u!114 &1878406028
 MonoBehaviour:
@@ -1231,10 +1232,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1878406024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 355457db32366fd4aae0e778bacedd30, type: 3}
+  m_Script: {fileID: 11500000, guid: 6aa812c4eb45a4c42aead7e5e4ab1fd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 15
+--- !u!114 &1878406029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878406024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bc04d2411913d8409d2492fe376d479, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runSpeed: 13
   walkSpeed: 6
   currentSpeed: 0
   isRunning: 0
@@ -1290,7 +1303,7 @@ GameObject:
   - component: {fileID: 2086620524}
   - component: {fileID: 2086620523}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Rampa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
