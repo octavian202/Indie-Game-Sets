@@ -7,7 +7,8 @@ namespace Scripts
         private Transform playerTransform;
         private Transform cameraTransform;
     
-        private readonly float damageTakeAmount = 50f;
+        private readonly float meleeDamage = 50f;
+        private readonly float meleeDistance  = 4f;
     
         private void Start()
         {
@@ -18,15 +19,15 @@ namespace Scripts
         private void Update()
         {
             if (!Input.GetMouseButtonDown(0)) return;
-                
+            
             RaycastHit hit;
-            if (!Physics.Raycast(playerTransform.position, cameraTransform.forward, out hit, 3f)) return;
+            if (!Physics.Raycast(playerTransform.position, cameraTransform.forward, out hit, meleeDistance)) return;
                 
             var selectionObj = hit.transform.gameObject;
             var selection = selectionObj.GetComponent<IDamageable>();
             if (selection == null) return;
-                
-            selection.TakeDamage(damageTakeAmount);
+            
+            selection.TakeDamage(meleeDamage);
         }
     }
 }
